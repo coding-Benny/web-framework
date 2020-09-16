@@ -35,10 +35,11 @@ public class DoLogin extends HttpServlet {
 		String customerId = request.getParameter("customerId");
 		
 		// Perform business logic. Return a bean as a result
-		CustomerService service = new CustomerService();
+		CustomerService service = (CustomerService) CustomerService.getInstance();
 		Customer customer = service.findCustomer(customerId);
 		
 		request.setAttribute("customer", customer);
+		// System.out.println(service);
 		
 		List<Customer> customerList = service.getAllCustomers();
 		request.setAttribute("customers", customerList);

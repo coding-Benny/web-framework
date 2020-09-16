@@ -10,7 +10,9 @@ import model.Customer;
 public class CustomerService {
 	private Map<String, Customer> customerMap;
 	
-	public CustomerService() {
+	private static final CustomerService instance = new CustomerService();
+	
+	private CustomerService() {
 		customerMap = new HashMap<String, Customer>();
 		
 		addCustomer(new Customer("id001", "alice", "alice.hansung.ac.kr"));
@@ -18,6 +20,10 @@ public class CustomerService {
 		addCustomer(new Customer("id003", "charlie", "charlie.hansung.ac.kr"));
 		addCustomer(new Customer("id004", "daniel", "daniel.hansung.ac.kr"));
 		addCustomer(new Customer("id005", "trudy", "trudy.hansung.ac.kr"));
+	}
+	
+	public static CustomerService getInstance() {
+		return instance;
 	}
 
 	private void addCustomer(Customer customer) {
