@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register Page</title>
+<title>Registration Page</title>
 </head>
 <style>
 div.ex {
@@ -15,26 +15,15 @@ div.ex {
 	margin: 0px
 }
 
-table {
-	padding: 5px;
-}
-
-th {
-	font-size: 1.3em;
-}
-
-.category {
-	width: 30%;
-	padding: 5px;
-}
-.user-info {
-	width: 50%;
-	padding: 5px;
-}
+table { padding: 5px; }
+th { font-size: 1.3em; }
+td { padding: 5px; }
+	
+.category { width: 30%; }
+.user-info { width: 50%; }
 </style>
-
 <body>
-	<h1>Register Form</h1>
+	<h1>Registration Form</h1>
 	<div class="ex">
 		<form action="/hw1-helloMVC/doRegister" method="post">
 			<table>
