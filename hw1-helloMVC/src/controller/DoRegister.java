@@ -13,7 +13,7 @@ import model.Customer;
 import service.CustomerService;
 
 /**
- * Servlet implementation class DoLogin
+ * Servlet implementation class DoRegister
  */
 @WebServlet("/doRegister")
 public class DoRegister extends HttpServlet {
@@ -24,12 +24,9 @@ public class DoRegister extends HttpServlet {
      */
     public DoRegister() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
@@ -40,12 +37,17 @@ public class DoRegister extends HttpServlet {
 		
 		CustomerService service = (CustomerService) CustomerService.getInstance();
 		Customer customer = new Customer(id, password, name, gender, email);
-		service.addCustomer(customer);
 		
 		String page;
-		page ="/view/registerSuccess.jsp";
-		
-		request.setAttribute("customer", customer);
+		if (id.isBlank() || password.isBlank() || name.isBlank()) {
+			page = "/view/registerFail.jsp";
+			System.out.println("Please fill in the blanks");
+		}
+		else {
+			page = "/view/registerSuccess.jsp";
+			service.addCustomer(customer);
+			request.setAttribute("customer", customer);			
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);

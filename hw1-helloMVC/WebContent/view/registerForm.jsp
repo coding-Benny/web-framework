@@ -18,10 +18,12 @@ div.ex {
 table { padding: 5px; }
 th { font-size: 1.3em; }
 td { padding: 5px; }
-	
+
 .category { width: 30%; }
 .user-info { width: 50%; }
+
 </style>
+
 <body>
 	<h1>Registration Form</h1>
 	<div class="ex">
@@ -32,19 +34,20 @@ td { padding: 5px; }
 				</tr>
 				<tr>
 					<td class="category">아이디</td>
-					<td class="user-info"><input type="text" name="id" /></td>
+					<td class="user-info"><input type="text" name="id" value="" /></td>
 				</tr>
 				<tr>
 					<td class="category">비밀번호</td>
-					<td class="user-info"><input type="password" name="password" /></td>
+					<td class="user-info"><input type="password" name="password" value="" /></td>
 				</tr>
 				<tr>
 					<td class="category">이름</td>
-					<td class="user-info"><input type="text" name="name" /></td>
+					<td class="user-info"><input type="text" name="name" value="" /></td>
 				</tr>
 				<tr>
 					<td class="category">성별</td>
 					<td class="user-info">
+					<input type="hidden" name="gender" value="none" />
 					<input type="radio" name="gender" value="male" /> 남자
 					<input type="radio" name="gender" value="female" /> 여자
 					</td>
