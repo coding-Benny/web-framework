@@ -21,7 +21,7 @@
 		
 	</bean>
 	<context:annotation-config></context:annotation-config>
-	<aop:config>
+	<!-- <aop:config>
 		<aop:aspect ref="id_logger" id="id_aspect">
 			<aop:pointcut
 				expression="execution(void kr.ac.hansung.cse.*.sound())"
@@ -29,5 +29,6 @@
 			<aop:before method="aboutToSound"
 				pointcut-ref="selectSound" />
 		</aop:aspect>
-	</aop:config>
+	</aop:config> -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 </beans>
