@@ -22,4 +22,22 @@ public class OfferController {
 		
 		return "offers";
 	}
+	
+	@RequestMapping("/createOffer")
+	public String createOffer(Model model) {
+		
+		model.addAttribute("offer", new Offer());
+		
+		return "createoffer";
+	}
+	
+	@RequestMapping("/docreate")
+	public String doCreate(Model model, Offer offer) {
+		
+		// System.out.println(offer);	Controller -> Service -> Dao
+		
+		offerService.insert(offer);
+		
+		return "offercreated";
+	}
 }
