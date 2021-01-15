@@ -62,6 +62,7 @@ Medium Article 읽고 문제에 답하기(이론)
 </details>
 
 - [hw3-myCourseMVC](https://github.com/coding-Benny/web-framework/tree/master/myCourseMVC)
+- [보고서](https://github.com/coding-Benny/web-framework/wiki/hw3-myCourseMVC)
 
 <details>
   <summary>실행 결과</summary>
