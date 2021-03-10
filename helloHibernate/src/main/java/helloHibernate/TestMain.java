@@ -1,9 +1,12 @@
 package helloHibernate;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 public class TestMain {
 
@@ -21,14 +24,28 @@ public class TestMain {
 		sessionFactory = new Configuration().configure().buildSessionFactory();
 		
 		Product product1 = new Product();
-		product1.setName("Notebook");
+		product1.setName("Notebook2");
 		product1.setPrice(2000);
 		product1.setDescription("Awesome Notebook!!");
+		
+		Product product2 = new Product();
+		product2.setName("Notebook1");
+		product2.setPrice(3000);
+		product2.setDescription("Powerful Notebook!!");
 		
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
 		session.save(product1);
+		session.save(product2);
+		
+		/*
+		 * Product savedProduct = session.get(Product.class, id1);
+		 * System.out.println("saved product" + savedProduct);
+		 */
+		Query<Product> aQuery = session.createQuery("from Product", Product.class); // HQL
+		List<Product> products = aQuery.getResultList();
+		System.out.println(products);
 		
 		tx.commit();
 		
