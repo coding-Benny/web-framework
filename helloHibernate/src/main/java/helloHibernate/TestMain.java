@@ -1,5 +1,8 @@
 package helloHibernate;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -31,44 +34,47 @@ public class TestMain {
 		product1.setPrice(2000);
 		product1.setDescription("Awesome Notebook!!");
 		product1.setCategory(category1);
+		category1.getProducts().add(product1);
 		
 		Product product2 = new Product();
 		product2.setName("Notebook2");
 		product2.setPrice(3000);
 		product2.setDescription("Powerful Notebook!!");
 		product2.setCategory(category1);
+		category1.getProducts().add(product2);
 		
 		Product product3 = new Product();
 		product3.setName("Sonata");
 		product3.setPrice(3000);
 		product3.setDescription("Popular Car!!");
 		product3.setCategory(category2);
+		category2.getProducts().add(product3);
 		
+		// session 1
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		
-		session.save(product1);
-		session.save(product2);
-		session.save(product3);
-		
-		session.delete(product3);	// product3 -> category2
-		
-		product1.setCategory(null); // product1 ->
-		session.delete(product1);
-		
-		/*
-		 * Product savedProduct = session.get(Product.class, id1);
-		 * System.out.println("saved product" + savedProduct);
-		 */
-		/*
-		 * Query<Product> aQuery = session.createQuery("from Product", Product.class);
-		 * // HQL List<Product> products = aQuery.getResultList();
-		 * System.out.println(products);
-		 */
+		Serializable cid = session.save(category1);
+		session.save(category2);
 		
 		tx.commit();
 		
 		session.close();
+		
+		// session 2
+		Session session2 = sessionFactory.openSession();
+		Transaction tx2 = session2.beginTransaction();
+		
+		Category aCategory = session2.get(Category.class, cid);
+		
+		Set<Product> products = aCategory.getProducts();
+		
+		for(Product p: products)
+			System.out.println(p.getName());
+		
+		tx2.commit();
+		session2.close();
+		
 		sessionFactory.close();
 		
 	}
