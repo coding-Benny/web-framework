@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
-	//private static final Logger LOGGER = LoggerFactory.getLogger("kr.ac.hansung.controller.HomeController");
+	// private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger("kr.ac.hansung.controller.HomeController");
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
@@ -27,6 +27,11 @@ public class HomeController {
 		LOGGER.info("Request URL: {}, Client IP: {}", url, clientIPaddr);
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	public String newHome() {
+		return "index";
 	}
 	
 }
