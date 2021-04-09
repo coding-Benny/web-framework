@@ -45,7 +45,7 @@ public class RestApiController {
 		User user = userService.findById(id);
 		if (user == null) {
 			// to do list: custom exception
-			throw new UserNotFoundException(null);
+			throw new UserNotFoundException(id);
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
