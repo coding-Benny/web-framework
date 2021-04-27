@@ -83,3 +83,113 @@ Medium Article 읽고 문제에 답하기(이론)
     <img src="https://github.com/coding-Benny/web-framework/blob/master/myCourseMVC/images/registration.png" width="600" height="450">
   </ul>
 </details>
+
+## Web Framework 2
+### 과제 1
+<details>
+  <summary>요구 사항</summary>
+  <a href="https://github.com/stelladream/eCommerce">기본 소스</a>를 수정하여 Product와 Category를 관리하는 REST API를 구현하기
+</details>
+<details>
+  <summary>실행 결과</summary>
+  <ul>
+    <li>Product와 Category 정보를 데이터베이스에 삽입
+    
+    $ cd eCommerce/src/main/resources
+    $ mysql -u root -p
+    $ use eCommerce;
+    $ source data.sql;
+   </li>
+   <li> Postman으로 전체 실행 결과를 확인하실 수 있습니다 :)<br>
+  
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9966865-27eaf1fc-3c65-474d-9ec0-3aeefdb103c8?action=collection%2Ffork&collection-url=entityId%3D9966865-27eaf1fc-3c65-474d-9ec0-3aeefdb103c8%26entityType%3Dcollection)
+    <details>
+  <summary>스크린샷</summary>
+    <ol type="1">
+      <li>
+        모든 product 조회하기: <code>GET</code> http://localhost:8080/ecommerce/api/products<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/1.view-all-products.PNG" alt="View all products">
+      </li>
+      <li>
+        특정 product 조회하기: <code>GET</code> http://localhost:8080/ecommerce/api/products/{id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/2.view-product.PNG" alt="View product">
+      </li>
+      <li>
+        product 생성하기: <code>POST</code> http://localhost:8080/ecommerce/api/products<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/3.create-product.PNG" alt="Create product">
+      </li>
+      <li>
+        product 수정하기: <code>PUT</code> http://localhost:8080/ecommerce/api/products/{id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/4.update-product.PNG" alt="Update product">
+      </li>
+      <li>
+        product 삭제하기: <code>DELETE</code> http://localhost:8080/ecommerce/api/products/{id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/5.delete-product.PNG" alt="Remove product">
+      </li>
+      <li>
+        모든 category 조회하기: <code>GET</code> http://localhost:8080/ecommerce/api/categories<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/1-1.view-all-categories.PNG" alt="View all categories">
+      </li>
+      <li>
+        특정 category 조회하기: <code>GET</code> http://localhost:8080/ecommerce/api/categories/{id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/1-2.view-category.PNG" alt="View category">
+      </li>
+      <li>
+        category 생성하기: <code>POST</code> http://localhost:8080/ecommerce/api/categories<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/1-3.create-category.PNG" alt="Create category">
+      </li>
+      <li>
+        category 수정하기: <code>PUT</code> http://localhost:8080/ecommerce/api/categories/{id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/1-4.update-category.PNG" alt="Update category">
+      </li>
+      <li>
+        category 삭제하기: <code>DELETE</code> http://localhost:8080/ecommerce/api/categories/{id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/1-5.delete-category.PNG" alt="Remove category">
+      </li>
+      <li>
+        부모 카테고리에 속한 자식 카테고리 조회하기: <code>GET</code> http://localhost:8080/ecommerce/api/categories/{parent_id}/subcategories<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/2-1.view-child-categories.PNG" alt="View child categories">
+      </li>
+      <li>
+        부모 카테고리와 자식 카테고리 연결하기
+        <ol>
+          <li>
+            서브 카테고리 생성하기: <code>POST</code> http://localhost:8080/ecommerce/api/categories<br>
+            <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/2-2-1.create-subcategory.PNG" alt="Create subcategory">
+          </li>
+          <li>
+            연결하기: <code>POST</code> http://localhost:8080/ecommerce/api/categories/{parent_id}/subcategories/{child_id}<br>
+            <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/2-2-2.connect-parent-child-category.PNG" alt="Connect parent and child category">
+          </li>
+        </ol>
+      </li>
+      <li>
+        부모 카테고리에 속한 자식 카테고리 제거하기: <code>DELETE</code> http://localhost:8080/ecommerce/api/categories/{parent_id}/subcategories<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/2-3.remove-child-from-parent-category.PNG" alt="Remove child from parent category">
+      </li>
+      <li>
+        카테고리에 속한 모든 product 조회하기: <code>GET</code> http://localhost:8080/ecommerce/api/categories/{id}/products<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/3-1.view-all-products-belongs-category.PNG" alt="View all products belongs category">
+      </li>
+      <li>
+        product를 카테고리에 넣기
+        <ol>
+          <li>
+            product 생성하기: <code>POST</code> http://localhost:8080/ecommerce/api/products<br>
+            <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/3-2-1.create-product.PNG" alt="Create product">
+          </li>
+          <li>
+            카테고리에 넣기: <code>POST</code> http://localhost:8080/ecommerce/api/categories/{category_id}/products/{product_id}<br>
+            <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/3-2-2.put-product-into-category.PNG" alt="Put product into category">
+          </li>
+        </ol>
+      </li>
+      <li>
+        product를 카테고리에서 제거하기: <code>DELETE</code> http://localhost:8080/ecommerce/api/categories/{category_id}/products/{product_id}<br>
+        <img src="https://github.com/coding-Benny/web-framework/blob/master/eCommerce/images/3-3.delete-product-from-category.PNG" alt="Delete product from category">
+      </li>
+    <ol>
+    </details>
+   </li>
+  </ul>
+</details>
