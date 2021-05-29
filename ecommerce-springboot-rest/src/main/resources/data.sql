@@ -5,9 +5,10 @@ INSERT INTO roles (id, rolename) VALUES (1, 'ROLE_ADMIN'),
 INSERT INTO users (id, email, password) VALUES
 (1, 'alice@hansung.ac.kr', '$2a$10$kNV8XoSu1uGkcgQwMImd/O3HIES5L/Fx5XFxFkUb/5b5pMWODxT6G'),
 (2, 'bob@hansung.ac.kr', '$2a$10$QuYYcgaP6LFfV53Qssvtp.hcj1BJVmgzO7pCValc27jm4SsI25Lf2'),
-(3, 'trudy@hansung.ac.kr', '$2a$10$UXtORhsulW0fhwXhcDEhXO9CUQkIWPxRrGMJYQhMW/5TBd7rYbsFq');
+(3, 'trudy@hansung.ac.kr', '$2a$10$UXtORhsulW0fhwXhcDEhXO9CUQkIWPxRrGMJYQhMW/5TBd7rYbsFq'),
+(4, 'charlie@hansung.ac.kr', '$2a$10$ZUxRSrmvcEti1l27Rmkse.oDF.y9SP5/dGBWaFkeySkIORc/YAceO');
 
-insert into user_role(user_id, role_id) values (1,1), (1,2), (2,2), (3,2);
+insert into user_role(user_id, role_id) values (1,1), (1,2), (2,2), (3,2), (4,1);
 
 -- Categories
 insert into app_category (id, name, parentid) values (1, 'Electronics', null);
