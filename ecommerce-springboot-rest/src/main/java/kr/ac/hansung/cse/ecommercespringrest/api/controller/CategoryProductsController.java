@@ -84,4 +84,25 @@ public class CategoryProductsController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productModel);
 	}
 
+	@RequestMapping(path = "/{productid}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeProduct(@PathVariable Long categoryid, @PathVariable Long productid) {
+
+		// Getting the requiring category; or throwing exception if not found
+		final Category category = categoryService.getCategoryById(categoryid)
+				.orElseThrow(() -> new NotFoundException(categoryid));
+
+		// Getting the requiring product; or throwing exception if not found
+		final Product product = productService.getProductById(productid)
+				.orElseThrow(() -> new NotFoundException(productid));
+
+		// Validating if association exists...
+		if (!productService.hasCategory(product, category)) {
+			throw new IllegalArgumentException("category " + category.getId() + " does not contain product " + product.getId());
+		}
+
+		// Dis-associating category with product...
+		productService.removeCategory(product, category);
+
+		return ResponseEntity.noContent().build();
+	}
 }
