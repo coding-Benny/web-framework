@@ -95,10 +95,12 @@ Medium Article 읽고 문제에 답하기(이론)
   <ul>
     <li>Product와 Category 정보를 데이터베이스에 삽입
     
-    $ cd eCommerce/src/main/resources
-    $ mysql -u root -p
-    $ use eCommerce;
-    $ source data.sql;
+```console
+$ cd eCommerce/src/main/resources
+$ mysql -u root -p
+$ use eCommerce;
+$ source data.sql;
+```
    </li>
    <li> Postman으로 전체 실행 결과를 확인하실 수 있습니다 :)<br>
   
@@ -191,5 +193,140 @@ Medium Article 읽고 문제에 답하기(이론)
     <ol>
     </details>
    </li>
+  </ul>
+</details>
+  
+### 과제 2
+<details>
+  <summary>요구 사항</summary>
+  제공된 <a href="https://github.com/stelladream/ecommerce-springboot-rest">기본 소스</a>를 기반으로 Spring Boot 2.4.5에서 다음을 수행하기
+  <ol>
+    <li><code>README.md</code>의 6번 항목에 따라 Postman을 사용하여 Request를 보내고 Response를 보이기</li>
+    <li>Charlie 계정(권한은 admin, 패스워드는 charliepw)을 <code>data.sql</code>에 저장하기</li>
+    <ul>
+      <li>패스워드는 BCryptPasswordEncoder를 이용하여 해쉬값을 저장</li>
+      <li><code>GET /api/products</code>를 호출했을 때 로그인 화면이 보일 수 있도록 코드를 수정하고 브라우저에서 로그인이 성공적으로 이루어짐을 보이기</li>
+    </ul>
+    <li><code>GET /api/categories/1</code> 요청을 보내고 응답 메시지(hypermedia)를 보인 다음, 이와 관련된 프로그램 소스를 지적하고 설명하기</li>
+    <li>Category에서 특정 Product를 제거하는 코드 작성하고 결과 보이기</li>
+    <ul>
+      <li>응답 상태 코드(status code)는 <code>204 No Content.</code>로 설정</li>
+    </ul>
+  </ol>
+</details>
+<details>
+  <summary>실행 결과</summary>
+  <ul>
+    <li>Product와 Category 및 User 정보를 데이터베이스에 삽입
+    
+```console
+$ cd ecommerce-springboot-rest/src/main/resources
+$ mysql -u root -p
+$ use ecommerce;
+$ source data.sql;
+```
+   </li>
+   <li> Postman으로 전체 실행 결과를 확인하실 수 있습니다 :)<br>
+  
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9966865-dd3286c7-9eff-414b-9fa7-c928ddab07ee?action=collection%2Ffork&collection-url=entityId%3D9966865-dd3286c7-9eff-414b-9fa7-c928ddab07ee%26entityType%3Dcollection)
+    <details>
+  <summary>스크린샷</summary>
+    
+#### 1.Postman으로 Request & Response
+      
+  <ol type="1">
+    <li>모든 product 조회하기: <code>GET</code> http://localhost:8080/api/products</li>
+        
+![View all products](https://user-images.githubusercontent.com/51183274/123884509-5a5fb980-d986-11eb-97d8-d24dc7a55cdd.png)
+
+      
+  <li>특정 product 조회하기: <code>GET</code> http://localhost:8080/api/products/{id}</li>
+        
+![View product](https://user-images.githubusercontent.com/51183274/123884644-aad71700-d986-11eb-8e32-ef59dbd34f04.png)
+
+  <li>product 생성하기: <code>POST</code> http://localhost:8080/api/products</li>
+
+![Create product](https://user-images.githubusercontent.com/51183274/123884865-318bf400-d987-11eb-8bb2-51c36a9d7b46.png)
+
+  <li>product 수정하기: <code>PUT</code> http://localhost:8080/api/products/{id}</li>
+      
+![Update product](https://user-images.githubusercontent.com/51183274/123884903-4bc5d200-d987-11eb-8cf2-8cfa0455cf27.png)
+
+  <li>product 삭제하기: <code>DELETE</code> http://localhost:8080/api/products/{id}</li>
+      
+![Remove product](https://user-images.githubusercontent.com/51183274/123884979-7021ae80-d987-11eb-8e06-0df2afae1a6b.png)
+      
+  <li>모든 category 조회하기: <code>GET</code> http://localhost:8080/api/categories</li>
+
+![View all categories](https://user-images.githubusercontent.com/51183274/123885020-8465ab80-d987-11eb-907f-8e1d8bc6d269.png)
+
+  <li>특정 category 조회하기: <code>GET</code> http://localhost:8080/api/categories/{id}</li>
+      
+![View category](https://user-images.githubusercontent.com/51183274/123885105-aceda580-d987-11eb-8254-983453b9c2e4.png)
+      
+  <li>category 생성하기: <code>POST</code> http://localhost:8080/api/categories</li>
+      
+![Create category](https://user-images.githubusercontent.com/51183274/123885176-d8709000-d987-11eb-81d5-366f7b56b331.png)
+
+  <li>category 수정하기: <code>PUT</code> http://localhost:8080/api/categories/{id}</li>
+      
+![Update category](https://user-images.githubusercontent.com/51183274/123885267-0c4bb580-d988-11eb-8e4b-974fc78c8409.png)
+      
+  <li>category 삭제하기: <code>DELETE</code> http://localhost:8080/api/categories/{id}</li>
+    
+![Remove category](https://user-images.githubusercontent.com/51183274/123885278-166db400-d988-11eb-9fd0-629e2fea04ac.png)
+      
+  <li>부모 카테고리에 속한 자식 카테고리 조회하기: <code>GET</code> http://localhost:8080/api/categories/{parent_id}/subcategories</li>
+      
+![View subcategories](https://user-images.githubusercontent.com/51183274/123885331-3309ec00-d988-11eb-8bd2-270bcd1560be.png)
+      
+  <li>
+    부모 카테고리와 자식 카테고리 연결하기
+    <ol>
+      <li>서브 카테고리 생성하기: <code>POST</code> http://localhost:8080/api/categories</li>
+      
+![Create subcategory](https://user-images.githubusercontent.com/51183274/123885447-72d0d380-d988-11eb-9615-9e7f96a9cbb7.png)
+      
+  <li>연결하기: <code>POST</code> http://localhost:8080/api/categories/{parent_id}/subcategories/{child_id}</li>
+      
+![Connect parent and child category](https://user-images.githubusercontent.com/51183274/123885483-8714d080-d988-11eb-8de6-75cecb80c5d7.png)
+      
+  </ol>
+  </li>
+      
+  <li>연결하기: <code>POST</code> http://localhost:8080/api/categories/{parent_id}/subcategories/{child_id}</li>
+      
+![Connect parent and child category](https://user-images.githubusercontent.com/51183274/123885483-8714d080-d988-11eb-8de6-75cecb80c5d7.png)
+      
+  <li>부모 카테고리에 속한 자식 카테고리 제거하기: <code>DELETE</code> http://localhost:8080/api/categories/{parent_id}/subcategories</li>
+      
+![Remove child from parent category](https://user-images.githubusercontent.com/51183274/123886585-c0e6d680-d98a-11eb-8291-c1a2e3ce9dbf.png)
+      
+  <li>카테고리에 속한 모든 product 조회하기: <code>GET</code> http://localhost:8080/api/categories/{id}/products</li>
+      
+![View all products belonging category](https://user-images.githubusercontent.com/51183274/123886670-eb389400-d98a-11eb-89d9-95115e98a4a3.png)
+      
+  <li>product를 카테고리에 넣기
+    <ol>
+      <li>product 생성하기: <code>POST</code> http://localhost:8080/api/products</li>
+      
+![Create product](https://user-images.githubusercontent.com/51183274/123886730-10c59d80-d98b-11eb-87e2-7eb243cd9b20.png)
+      
+  <li>
+    카테고리에 넣기: <code>POST</code> http://localhost:8080/api/categories/{category_id}/products/{product_id}</li>
+      
+![Put product into category](https://user-images.githubusercontent.com/51183274/123886779-2a66e500-d98b-11eb-90a2-e214adc2f102.png)
+
+  </ol>
+  </li>
+    
+#### 2. Charlie의 계정을 data.sql에 저장하고 로그인 확인   
+![Charlie's login](https://user-images.githubusercontent.com/51183274/123887491-8ed67400-d98c-11eb-9623-7effa5967991.png)
+
+#### 4. Category에서 특정 Product 제거
+![Remove product from category](https://user-images.githubusercontent.com/51183274/123887561-b594aa80-d98c-11eb-9ba7-f4a26cf2e490.png)
+
+  </details>
+  
   </ul>
 </details>
